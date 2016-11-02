@@ -14,7 +14,7 @@ AlreadyBoughtController.$inject = ['ShoppingListCheckOffService'];
 function ToBuyController(ShoppingListCheckOffService){
 
   var ToBuyCtrl = this;
-  console.log("Entrer dans tobuyController");
+
   ToBuyCtrl.Items = [];
   ToBuyCtrl.message = true;
 
@@ -40,25 +40,18 @@ function AlreadyBoughtController(ShoppingListCheckOffService){
 
   var ReadyBCtrl = this;
   ReadyBCtrl.Items = [];
-  ReadyBCtrl.message = [];
-//  ReadyBCtrl.message = true;
+  ReadyBCtrl.shop = ShoppingListCheckOffService;
 
-  //ReadyBCtrl.Items = ShoppingListCheckOffService.ItemsBought;
-//  ReadyBCtrl.message = ShoppingListCheckOffService.Message;
-  ReadyBCtrl.Items = ShoppingListCheckOffService.getItemsBought();
-  ReadyBCtrl.message = ShoppingListCheckOffService.getMessageBought();
+  ReadyBCtrl.Items = ReadyBCtrl.shop.getItemsBought();
+
 }
 
 function ShoppingListCheckOffService(){
   var service = this;
 
   var ItemsBought = [];
-//  var message1 = true;
-  var Message = [true];
 
-  //service.Message = Message;
-
-  //service.ItemsBought = ItemsBought;
+  service.message = true;
 
   var ItemsToBuy = [
     {
@@ -92,24 +85,18 @@ function ShoppingListCheckOffService(){
      }
 
      ItemsBought.push(item);
-     Message[0]  = false;
-    // message1 = false;
+     service.message = false;
      ItemsToBuy.splice(itemIndex, 1);
-
  };
 
  service.getItemsBought = function () {
    return ItemsBought;
  };
- service.getMessageBought = function () {
-  //return message1;
-   return Message;
- };
+
  service.getItemsToBuy = function () {
    return ItemsToBuy;
  };
 
-//console.log('items bought3: ' +  service.ItemsBought + 'message: ' + message1);
 }
 
 })();
